@@ -1,6 +1,6 @@
 {
   "name": "envpls",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "🙏 ez clap structured env",
   "main": "dist/index.js",
   "type": "module",
