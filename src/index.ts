@@ -13,7 +13,7 @@ export default function envpls<
   const T extends EnvSchema<Record<string, unknown>>
 >(envSchema: T) {
   const errors: string[] = []
-  recurse(envSchema, "", errors)
+  recurse(envSchema, errors)
   if (errors.length > 0) {
     throw new Error(`[envplease]: Missing env variables: ${errors.join(", ")}`)
   }
@@ -22,15 +22,15 @@ export default function envpls<
 
 function recurse(
   envSchema: EnvSchema<Record<string, unknown>>,
-  path: string = "",
-  errors: string[] = []
+  errors: string[],
+  path: string = ""
 ) {
   for (const key in envSchema) {
     const keyPath = (path.length > 0 ? path + "." : "") + key
     if (envSchema[key] === undefined) {
       errors.push(keyPath)
     } else if (typeof envSchema[key] === "object") {
-      recurse(envSchema[key], keyPath, errors)
+      recurse(envSchema[key], errors, keyPath)
     }
   }
 }
